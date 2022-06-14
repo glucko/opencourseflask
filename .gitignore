@@ -1,5 +1,5 @@
 *.pyc
 .env
-venv
+ocf
 .vscode/
 app.sqlite3

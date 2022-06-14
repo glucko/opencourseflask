@@ -14,18 +14,15 @@
 {% endwith %}
 {% if current_user.is_authenticated %}
   You are logged in as {{ current_user.email }}!
-  <form action="/createcourse" method="post">
-    <label for="name">Name:</label><br>
-    <input type="text" id="name" name="name"><br>
-
-    <label for="content">Content:</label><br>
-    <textarea id="content" cols='40'name="content"> </textarea><br><br>
-
-    <input type="submit" value="Submit">
-  </form>
-
+    {% for course in courses %}
+    <p>{{ course.name }} {{ course.id }} {{ current_user.id }}</p>
+    <form action="course/save" method="post">
+        <input name="course_id" id="course" type="hidden" value="{{ course.id }}">
+        <input name="user_id" id="user" type="hidden" value="{{ current_user.id }}">
+        <input type="submit" value="Save">
+    </form>
+    {% endfor %}
   <a href="{{ url_for("logout") }}">Log out</a>
-  <a href="{{ url_for("courses") }}">courses</a>
 {% else %}
   You are not logged in.
   <a href="{{ url_for("google.login") }}">Log in</a>
